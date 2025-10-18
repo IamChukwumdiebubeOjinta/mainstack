@@ -1,56 +1,114 @@
-import { Badge, Box, HStack, Icon, Stack, Text } from "@chakra-ui/react"
-import { LuArrowUpRight, LuCheck, LuClock } from "react-icons/lu"
-import type { TransactionItemProps, TransactionStatus } from "@/types/transactions"
+import { Box, HStack, Stack, Text } from "@chakra-ui/react";
+import { LuArrowDownLeft, LuArrowUpRight } from "react-icons/lu";
+import type {
+  TransactionItemProps,
+  TransactionStatus,
+} from "@/types/transactions";
 
-function StatusIcon({ status }: { status: TransactionStatus }) {
-  const color = status === "success" ? "green.500" : "orange.500"
-  const icon = status === "success" ? <LuCheck /> : <LuArrowUpRight />
-  return (
-    <Icon color={color} boxSize={5}>
-      {icon}
-    </Icon>
-  )
+interface TransactionItemPropsWithLast extends TransactionItemProps {
+  isLast?: boolean;
 }
 
-export function TransactionItem(props: TransactionItemProps) {
-  const { title, description, status, amount, date } = props
+function StatusIcon({
+  status,
+  title,
+}: {
+  status: TransactionStatus;
+  title: string;
+}) {
+  const isIncoming =
+    status === "success" && !title.toLowerCase().includes("withdrawal");
+
+  return (
+    <Box
+      width="48px"
+      height="48px"
+      borderRadius="50%"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bg={isIncoming ? "app.successBg" : "app.dangerBg"}
+    >
+      <Box color={isIncoming ? "app.success" : "app.danger"}>
+        {isIncoming ? <LuArrowDownLeft size={20} /> : <LuArrowUpRight size={20} />}
+      </Box>
+    </Box>
+  );
+}
+
+export function TransactionItem(props: TransactionItemPropsWithLast) {
+  const { title, description, status, amount, date, isLast } = props;
+
   return (
     <HStack
       py={4}
       justify="space-between"
-      borderBottomWidth="1px"
-      transition="background 0.2s ease"
-      _hover={{ bg: "bg.muted" }}
+      align="center"
+      borderBottom={isLast ? "none" : "1px solid"}
+      borderColor={isLast ? "transparent" : "app.borderMuted"}
     >
-      <HStack gap={3} align="start">
-        <StatusIcon status={status} />
-        <Stack spacing={0}>
-          <Text fontWeight="semibold">{title}</Text>
-          <Text color="fg.muted" fontSize="sm">
+      <HStack gap={4} align="center" flex="1">
+        <StatusIcon status={status} title={title} />
+        <Stack gap={1} flex="1">
+          <Text
+            fontWeight="medium"
+            fontSize="16px"
+            color="app.text"
+            lineHeight="24px"
+          >
+            {title}
+          </Text>
+          <Text
+            color="app.textMuted"
+            fontSize="14px"
+            lineHeight="20px"
+            fontWeight="normal"
+          >
             {description}
           </Text>
           {status === "pending" && (
-            <Text color="orange.500" fontSize="xs" mt={1}>
+            <Text
+              color="app.warning"
+              fontSize="14px"
+              fontWeight="medium"
+              mt={1}
+            >
               Pending
             </Text>
           )}
-          {status === "success" && (
-            <Text color="green.500" fontSize="xs" mt={1}>
-              Successful
-            </Text>
-          )}
+          {status === "success" &&
+            title.toLowerCase().includes("withdrawal") && (
+              <Text
+                color="app.success"
+                fontSize="14px"
+                fontWeight="medium"
+                mt={1}
+              >
+                Successful
+              </Text>
+            )}
         </Stack>
       </HStack>
-      <Stack spacing={0} align="end">
-        <Text fontWeight="semibold">{amount}</Text>
-        <Text color="fg.muted" fontSize="sm">
+      <Stack gap={1} align="end" minW="120px">
+        <Text
+          fontWeight="semibold"
+          fontSize="16px"
+          color="app.text"
+          lineHeight="24px"
+        >
+          {amount}
+        </Text>
+        <Text
+          color="app.textMuted"
+          fontSize="12px"
+          lineHeight="20px"
+          fontWeight="normal"
+        >
           {date}
         </Text>
       </Stack>
     </HStack>
-  )
+  );
 }
 
-export default TransactionItem
-
-
+export default TransactionItem;

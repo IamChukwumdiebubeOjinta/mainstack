@@ -17,23 +17,23 @@ function App() {
       <Sidebar />
       <Box ml="80px">
         <TopNav />
-        <Container maxW="7xl" py={{ base: 6, md: 10 }}>
-        <Grid
-          templateColumns={{ base: "1fr", lg: "2fr 1fr" }}
-          gap={{ base: 6, lg: "124px" }}
-        >
-          <GridItem>
-            <RevenueSection
-              amount={availableBalance}
-              chartData={revenueSeries}
-            />
-          </GridItem>
-          <GridItem>
-            <StatsPanel stats={rightStats} />
-          </GridItem>
-        </Grid>
+        <Container maxW="7xl" py={{ base: 6, md: 10 }} spaceY="82px">
+          <Grid
+            templateColumns={{ base: "1fr", lg: "2fr 1fr" }}
+            gap={{ base: 6, lg: "124px" }}
+          >
+            <GridItem>
+              <RevenueSection
+                amount={availableBalance}
+                chartData={revenueSeries}
+              />
+            </GridItem>
+            <GridItem>
+              <StatsPanel stats={rightStats} />
+            </GridItem>
+          </Grid>
 
-        <TransactionsList items={transactions} />
+          <TransactionsList items={transactions} />
         </Container>
       </Box>
     </Box>

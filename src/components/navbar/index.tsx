@@ -58,8 +58,8 @@ export default function TopNav() {
       zIndex="docked"
       marginInline="14px"
       marginTop="14px"
-      rounded="100px"
-      boxShadow="0px 2px 4px #2c3b420d , 0px 2px 6px #2d3b430f"
+      rounded="pill"
+      boxShadow="app.header"
     >
       <Container maxW="7xl" py={{ base: 3, md: 4 }}>
         <HStack gap={4} justifyContent="space-between">
@@ -110,8 +110,8 @@ export default function TopNav() {
                   pl="5px"
                   pr="12px"
                   gap="8px"
-                  bg="#EFF1F6"
-                  rounded="100px"
+                  bg="app.surfaceMuted"
+                  rounded="pill"
                   cursor="pointer"
                   flex="none"
                   order="3"
@@ -124,7 +124,7 @@ export default function TopNav() {
                     order="0"
                     flexGrow="0"
                     bg="linear-gradient(138.98deg, #5C6670 2.33%, #131316 96.28%)"
-                    rounded="100px"
+                    rounded="pill"
                   >
                     <Avatar.Fallback
                       name={userProfileName}
