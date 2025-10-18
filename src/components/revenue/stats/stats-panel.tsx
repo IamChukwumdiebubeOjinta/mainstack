@@ -12,27 +12,21 @@ interface StatsPanelProps {
 
 function StatsPanel({ stats }: StatsPanelProps) {
   return (
-    <Box
-      bg="white"
-      borderWidth="1px"
-      borderColor="gray.200"
-      rounded="xl"
-      p={{ base: 6, md: 8 }}
-      shadow="xs"
-    >
-      <VStack spacing={8} align="stretch">
-        {stats.map((stat, index) => (
+    <Box bg="white">
+      <VStack gap={8} align="stretch">
+        {stats.map((stat) => (
           <Box key={stat.label}>
-            <HStack justify="space-between" mb={3}>
+            <HStack justify="space-between" mb={2}>
               <Text
                 fontSize="sm"
                 color="#56616B"
-                fontWeight="normal"
-                lineHeight="20px"
+                fontWeight="meduim"
+                lineHeight="16px"
+                letterSpacing="-0.2px"
               >
                 {stat.label}
               </Text>
-              <Icon as={LuInfo} boxSize={5} color="#C1C7CD" />
+              <Icon as={LuInfo} boxSize={5} color="#56616B" />
             </HStack>
             <Text
               fontSize="28px"
@@ -43,13 +37,6 @@ function StatsPanel({ stats }: StatsPanelProps) {
             >
               {stat.value}
             </Text>
-            {index < stats.length - 1 && (
-              <Box
-                mt={8}
-                borderBottomWidth="1px"
-                borderColor="#E3E5E8"
-              />
-            )}
           </Box>
         ))}
       </VStack>
@@ -58,4 +45,3 @@ function StatsPanel({ stats }: StatsPanelProps) {
 }
 
 export default StatsPanel;
-

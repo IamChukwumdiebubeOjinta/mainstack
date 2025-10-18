@@ -6,6 +6,7 @@ import {
   XAxis,
   YAxis,
   ReferenceDot,
+  Tooltip,
 } from "recharts";
 
 interface RevenueChartProps {
@@ -40,6 +41,16 @@ function RevenueChart({ data }: RevenueChartProps) {
               axisLine={{ stroke: "#DBDEE5", strokeWidth: 1 }}
             />
             <YAxis hide domain={[0, "auto"]} />
+            <Tooltip
+              formatter={(value: number) => [`$${value}`, "Revenue"]}
+              labelFormatter={(label) => formatDate(label)}
+              contentStyle={{
+                backgroundColor: "white",
+                border: "1px solid #E5E5E5",
+                borderRadius: "8px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+              }}
+            />
             {data.length > 0 ? (
               <>
                 <ReferenceDot
@@ -62,9 +73,9 @@ function RevenueChart({ data }: RevenueChartProps) {
               type="monotone"
               dataKey="value"
               stroke="#FF7A00"
-              strokeWidth={1}
+              strokeWidth={1.5}
               dot={false}
-              activeDot={false}
+              activeDot={{ r: 6, fill: "#FF7A00", stroke: "#FF7A00", strokeWidth: 2 }}
             />
           </LineChart>
         </ResponsiveContainer>

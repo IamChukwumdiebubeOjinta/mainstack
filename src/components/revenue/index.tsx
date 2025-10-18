@@ -9,7 +9,7 @@ interface RevenueSectionProps {
 
 function RevenueSection({ amount, chartData }: RevenueSectionProps) {
   return (
-    <Stack gap={6}>
+    <Stack maxWidth="765px">
       <RevenueCard amount={amount} />
       <RevenueChart data={chartData} />
     </Stack>
