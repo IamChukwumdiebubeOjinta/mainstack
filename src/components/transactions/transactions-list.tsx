@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Heading, HStack, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import TransactionItem from "@/components/transactions/transaction-item";
 import type { TransactionItemProps } from "@/types/transactions";
 import { LuChevronDown, LuDownload } from "react-icons/lu";
@@ -10,26 +18,26 @@ interface TransactionsListProps {
 export function TransactionsList({ items }: TransactionsListProps) {
   return (
     <Box mt={{ base: 6, md: 10 }}>
-      <Flex
-        bg="card.bg"
-        rounded="card"
-        direction="column"
-        gap="33px"
-      >
+      <Flex bg="card.bg" rounded="card" direction="column" gap="33px">
         {/* Header Section */}
-        <HStack justify="space-between">
+        <HStack
+          justify="space-between"
+          borderBottom="1px solid"
+          borderColor="app.borderMuted"
+          pb="24px"
+        >
           <Stack gap={1}>
-            <Heading 
-              size="lg" 
-              fontWeight="bold" 
+            <Heading
+              size="lg"
+              fontWeight="bold"
               color="app.text"
               fontSize="24px"
               lineHeight="32px"
             >
               24 Transactions
             </Heading>
-            <Text 
-              color="app.textMuted" 
+            <Text
+              color="app.textMuted"
               fontSize="14px"
               lineHeight="20px"
               fontWeight="normal"
@@ -38,44 +46,45 @@ export function TransactionsList({ items }: TransactionsListProps) {
             </Text>
           </Stack>
           <HStack gap={3}>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               bg="app.surfaceMuted"
               color="app.text"
               fontSize="14px"
               fontWeight="medium"
-              px={4}
-              py={2}
-              borderRadius="action"
+              px="20px"
+              py="12px"
+              height={{ base: "40px", md: "48px" }}
+              borderRadius="100px"
               _hover={{ bg: "bg.muted" }}
             >
-              <LuChevronDown style={{ marginRight: '8px' }} />
               Filter
+              <LuChevronDown />
             </Button>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               bg="app.surfaceMuted"
               color="app.text"
               fontSize="14px"
               fontWeight="medium"
-              px={4}
-              py={2}
-              borderRadius="action"
+              px="20px"
+              py="12px"
+              height={{ base: "40px", md: "48px" }}
+              borderRadius="100px"
               _hover={{ bg: "bg.muted" }}
             >
-              <LuDownload style={{ marginRight: '8px' }} />
               Export list
+              <LuDownload />
             </Button>
           </HStack>
         </HStack>
 
         {/* Transaction List */}
-        <Stack gap={0}>
-          {items.map((tx, index) => (
+        <Stack>
+          {items.map((tx) => (
             <TransactionItem
               key={`${tx.title}-${tx.date}-${tx.amount}`}
               {...tx}
-              isLast={index === items.length - 1}
             />
           ))}
         </Stack>
@@ -83,5 +92,3 @@ export function TransactionsList({ items }: TransactionsListProps) {
     </Box>
   );
 }
-
-export default TransactionsList;

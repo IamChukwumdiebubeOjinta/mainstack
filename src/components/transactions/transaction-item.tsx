@@ -5,10 +5,6 @@ import type {
   TransactionStatus,
 } from "@/types/transactions";
 
-interface TransactionItemPropsWithLast extends TransactionItemProps {
-  isLast?: boolean;
-}
-
 function StatusIcon({
   status,
   title,
@@ -36,16 +32,14 @@ function StatusIcon({
   );
 }
 
-export function TransactionItem(props: TransactionItemPropsWithLast) {
-  const { title, description, status, amount, date, isLast } = props;
+export function TransactionItem(props: TransactionItemProps) {
+  const { title, description, status, amount, date } = props;
 
   return (
     <HStack
       py={4}
       justify="space-between"
       align="center"
-      borderBottom={isLast ? "none" : "1px solid"}
-      borderColor={isLast ? "transparent" : "app.borderMuted"}
     >
       <HStack gap={4} align="center" flex="1">
         <StatusIcon status={status} title={title} />
