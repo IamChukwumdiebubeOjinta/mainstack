@@ -29,6 +29,12 @@ interface NavItem {
   icon?: React.ReactNode;
 }
 
+/*
+ * TopNav Component
+ *  - Provides the main navigation header for the app.
+ *  - Includes navigation items, avatar menu, and notification icons.
+ */
+// Navigation items with active states
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", icon: <GoHome size={20} /> },
   { label: "Analytics", icon: <MdOutlineInsertChart size={20} /> },
@@ -37,8 +43,10 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Apps", icon: <MdOutlineWidgets size={20} /> },
 ];
 
+// User profile information for avatar
 const userProfileName = "Ojeda Jhone";
 
+// Main TopNav component with responsive design
 export default function TopNav() {
   return (
     <Box

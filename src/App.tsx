@@ -1,21 +1,14 @@
-import {
-  Box,
-  Container,
-  Grid,
-  GridItem,
-  Stack,
-} from "@chakra-ui/react";
-import TopNav from "./components/TopNav";
-import RevenueCard from "./components/RevenueCard";
-import RevenueChart from "./components/RevenueChart";
-import StatItem from "./components/StatItem";
-import TransactionsList from "./components/TransactionsList";
+import { Box, Container, Grid, GridItem } from "@chakra-ui/react";
+import TopNav from "@/components/navbar";
+import RevenueSection from "@/components/revenue";
+import StatsPanel from "@/components/revenue/stats/stats-panel";
+import TransactionsList from "@/components/transactions/transactions-list";
 import {
   availableBalance,
   revenueSeries,
   rightStats,
   transactions,
-} from "./data/mock";
+} from "@/data/mock";
 
 function App() {
   return (
@@ -27,31 +20,17 @@ function App() {
           gap={{ base: 6, md: 8 }}
         >
           <GridItem>
-            <Stack gap={6}>
-              <RevenueCard amount={availableBalance} />
-              <RevenueChart data={revenueSeries} />
-            </Stack>
+            <RevenueSection
+              amount={availableBalance}
+              chartData={revenueSeries}
+            />
           </GridItem>
           <GridItem>
-            <Box
-              bg="bg"
-              borderWidth="1px"
-              rounded="xl"
-              p={{ base: 4, md: 6 }}
-              shadow="xs"
-            >
-              <Stack>
-                {rightStats.map((s) => (
-                  <StatItem key={s.label} label={s.label} value={s.value} />
-                ))}
-              </Stack>
-            </Box>
+            <StatsPanel stats={rightStats} />
           </GridItem>
         </Grid>
 
-        <Box mt={{ base: 6, md: 10 }}>
-          <TransactionsList items={transactions} />
-        </Box>
+        <TransactionsList items={transactions} />
       </Container>
     </Box>
   );
