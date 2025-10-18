@@ -4,10 +4,10 @@ import {
   Grid,
   GridItem,
   Stack,
-  useToken,
 } from "@chakra-ui/react";
 import TopNav from "./components/TopNav";
 import RevenueCard from "./components/RevenueCard";
+import RevenueChart from "./components/RevenueChart";
 import StatItem from "./components/StatItem";
 import TransactionsList from "./components/TransactionsList";
 import {
@@ -16,18 +16,8 @@ import {
   rightStats,
   transactions,
 } from "./data/mock";
-import {
-  LineChart,
-  Line,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-} from "recharts";
 
 function App() {
-  const [lineColor] = useToken("colors", ["chart.line"]); // semantic token resolve
   return (
     <Box>
       <TopNav />
@@ -39,42 +29,7 @@ function App() {
           <GridItem>
             <Stack gap={6}>
               <RevenueCard amount={availableBalance} />
-              <Box
-                bg="bg"
-                borderWidth="1px"
-                rounded="xl"
-                p={{ base: 2, md: 4 }}
-                shadow="xs"
-              >
-                <Box h={{ base: 200, md: 260 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                      data={revenueSeries}
-                      margin={{ left: 8, right: 8, top: 8, bottom: 8 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                      <XAxis
-                        dataKey="date"
-                        hide
-                        tickLine={false}
-                        axisLine={false}
-                      />
-                      <YAxis hide domain={[0, 100]} />
-                      <Tooltip
-                        formatter={(v: number) => [`$${v}`, "Revenue"]}
-                        labelFormatter={() => ""}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="value"
-                        stroke={lineColor}
-                        strokeWidth={2}
-                        dot={false}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </Box>
-              </Box>
+              <RevenueChart data={revenueSeries} />
             </Stack>
           </GridItem>
           <GridItem>
