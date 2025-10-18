@@ -1,29 +1,53 @@
-import { Box, Button, Flex, Heading, HStack, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, Heading, HStack, Text } from "@chakra-ui/react";
 
 interface RevenueCardProps {
-  amount: string
+  amount: string;
 }
 
 export function RevenueCard({ amount }: RevenueCardProps) {
   return (
-    <Box bg="bg" borderWidth="1px" rounded="xl" p={{ base: 4, md: 6 }} shadow="xs">
-      <HStack justify="space-between" align="start">
-        <Box>
-          <Text color="fg.muted" fontWeight="medium" mb={1}>
+    <Box bg="bg" p={{ base: 4, md: 6 }}>
+      <HStack gap="64px" align="center">
+        <Flex direction="column" gap="8px">
+          <Text
+            color="gray.400"
+            fontWeight="medium"
+            fontSize="14px"
+            lineHeight="16px"
+            letterSpacing="-0.2px"
+            cursor="default"
+          >
             Available Balance
           </Text>
-          <Heading size={{ base: "lg", md: "2xl" }} letterSpacing="tight">
+          <Heading
+            size={{ base: "lg", md: "2xl" }}
+            letterSpacing="-1.5px"
+            fontWeight="bold"
+            fontSize="36px"
+            lineHeight="46px"
+            cursor="default"
+          >
             {amount}
           </Heading>
-        </Box>
-        <Button colorPalette="orange" variant="solid" size={{ base: "sm", md: "md" }}>
+        </Flex>
+        <Button
+          colorPalette="black"
+          variant="solid"
+          size="lg"
+          fontWeight="medium"
+          fontSize="14px"
+          lineHeight="16px"
+          letterSpacing="-0.2px"
+          cursor="pointer"
+          rounded="100px"
+          px="28px"
+          py="14px"
+        >
           Withdraw
         </Button>
       </HStack>
     </Box>
-  )
+  );
 }
 
-export default RevenueCard
-
-
+export default RevenueCard;
