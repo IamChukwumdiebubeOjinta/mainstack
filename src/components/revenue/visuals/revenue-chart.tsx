@@ -30,9 +30,9 @@ function RevenueChart({ data }: RevenueChartProps) {
     : "";
 
   return (
-    <Box>
-      <Box h={{ base: 200, md: 260 }}>
-        <ResponsiveContainer width="100%" height="100%">
+    <Box width="100%" minHeight="200px">
+      <Box h={{ base: 200, md: 260 }} width="100%" minWidth="300px">
+        <ResponsiveContainer width="100%" height="100%" minWidth={300} minHeight={200}>
           <LineChart data={data} margin={{ left: 20, right: 20 }}>
             <XAxis
               dataKey="date"

@@ -10,12 +10,15 @@ import {
 import TransactionItem from "@/components/transactions/transaction-item";
 import type { TransactionItemProps } from "@/types/transactions";
 import { LuChevronDown, LuDownload } from "react-icons/lu";
+import { useState } from "react";
+import FilterDrawer from "@/components/transactions/filter-drawer";
 
 interface TransactionsListProps {
   items: TransactionItemProps[];
 }
 
-export function TransactionsList({ items }: TransactionsListProps) {
+export default function TransactionsList({ items }: TransactionsListProps) {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   return (
     <Box mt={{ base: 6, md: 10 }}>
       <Flex bg="card.bg" rounded="card" direction="column" gap="33px">
@@ -57,6 +60,7 @@ export function TransactionsList({ items }: TransactionsListProps) {
               height={{ base: "40px", md: "48px" }}
               borderRadius="100px"
               _hover={{ bg: "bg.muted" }}
+              onClick={() => setIsFilterOpen(true)}
             >
               Filter
               <LuChevronDown />
@@ -89,6 +93,7 @@ export function TransactionsList({ items }: TransactionsListProps) {
           ))}
         </Stack>
       </Flex>
+      <FilterDrawer isOpen={isFilterOpen} onOpenChange={setIsFilterOpen} />
     </Box>
   );
 }
