@@ -1,5 +1,7 @@
+import type { Wallet } from "@/types";
+
 export default function formatObjectForUI(
-    obj: Record<string, number | string>,
+    obj: Wallet,
     hiddenKeys: string[] = []
 ) {
     const formatKey = (key: string) =>

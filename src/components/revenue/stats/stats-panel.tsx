@@ -8,7 +8,7 @@ const hideKeys = ["balance"];
 function StatsPanel() {
     const { data, isLoading, isError } = useWallet();
 
-    const stats = formatObjectForUI(data ?? {}, hideKeys);
+    const stats = formatObjectForUI(data, hideKeys);
     if (!stats) console.error(isError);
 
     return (
