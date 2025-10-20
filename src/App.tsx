@@ -5,7 +5,6 @@ import RevenueSection from "@/components/revenue";
 import StatsPanel from "@/components/revenue/stats/stats-panel";
 import TransactionsList from "@/components/transactions/transactions-list";
 import {
-  availableBalance,
   revenueSeries,
   rightStats,
   transactions,
@@ -24,12 +23,11 @@ function App() {
           >
             <GridItem>
               <RevenueSection
-                amount={availableBalance}
                 chartData={revenueSeries}
               />
             </GridItem>
             <GridItem>
-              <StatsPanel stats={rightStats} />
+              <StatsPanel />
             </GridItem>
           </Grid>
 
