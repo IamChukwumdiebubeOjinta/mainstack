@@ -6,21 +6,43 @@ import { LuChevronDown } from "react-icons/lu";
 import "react-day-picker/style.css";
 import "./date-range.css";
 
-export default function DateRangeSelector() {
+interface DateRangeSelectorProps {
+  startDate?: Date | undefined;
+  endDate?: Date | undefined;
+  onDateChange?: (start: Date | undefined, end: Date | undefined) => void;
+}
+
+export default function DateRangeSelector({
+  startDate: externalStartDate,
+  endDate: externalEndDate,
+  onDateChange,
+}: DateRangeSelectorProps = {}) {
   const [startDateOpen, setStartDateOpen] = useState(false);
   const [endDateOpen, setEndDateOpen] = useState(false);
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date(2023, 6, 17)); // July 17, 2023
-  const [endDate, setEndDate] = useState<Date | undefined>(new Date(2023, 7, 17)); // August 17, 2023
-  const [startMonth, setStartMonth] = useState<Date>(new Date(2023, 6, 17));
-  const [endMonth, setEndMonth] = useState<Date>(new Date(2023, 7, 17));
+  const [internalStartDate, setInternalStartDate] = useState<Date | undefined>(undefined);
+  const [internalEndDate, setInternalEndDate] = useState<Date | undefined>(undefined);
+
+  const startDate = externalStartDate ?? internalStartDate;
+  const endDate = externalEndDate ?? internalEndDate;
+
+  const [startMonth, setStartMonth] = useState<Date>(startDate || new Date());
+  const [endMonth, setEndMonth] = useState<Date>(endDate || new Date());
 
   const handleStartDateSelect = (date: Date | undefined) => {
-    setStartDate(date);
+    if (onDateChange) {
+      onDateChange(date, endDate);
+    } else {
+      setInternalStartDate(date);
+    }
     setStartDateOpen(false);
   };
 
   const handleEndDateSelect = (date: Date | undefined) => {
-    setEndDate(date);
+    if (onDateChange) {
+      onDateChange(startDate, date);
+    } else {
+      setInternalEndDate(date);
+    }
     setEndDateOpen(false);
   };
 

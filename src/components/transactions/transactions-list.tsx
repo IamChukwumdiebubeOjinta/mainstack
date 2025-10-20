@@ -12,12 +12,19 @@ import { LuChevronDown, LuDownload } from "react-icons/lu";
 import { useState } from "react";
 import FilterDrawer from "@/components/transactions/filter-drawer";
 import { useTransactions } from "@/hooks/useTransactions";
+import { useTransactionFilters } from "@/hooks/useTransactionFilters";
 
 export default function TransactionsList() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { data: transactions, isLoading } = useTransactions();
 
-  const transactionCount = transactions?.length ?? 0;
+  const {
+    setFilters,
+    filteredTransactions,
+    exportToCSV,
+    formatTransaction,
+    transactionCount,
+  } = useTransactionFilters(transactions);
 
   return (
     <Box mt={{ base: 6, md: 10 }}>
@@ -59,7 +66,7 @@ export default function TransactionsList() {
               py="12px"
               height={{ base: "40px", md: "48px" }}
               borderRadius="100px"
-              _hover={{ bg: "bg.muted" }}
+              _hover={{ bg: "black", color: "white" }}
               onClick={() => setIsFilterOpen(true)}
             >
               Filter
@@ -75,7 +82,9 @@ export default function TransactionsList() {
               py="12px"
               height={{ base: "40px", md: "48px" }}
               borderRadius="100px"
-              _hover={{ bg: "bg.muted" }}
+              _hover={{ bg: "black", color: "white" }}
+              onClick={exportToCSV}
+              disabled={isLoading || transactionCount === 0}
             >
               Export list
               <LuDownload />
@@ -89,21 +98,14 @@ export default function TransactionsList() {
             <Text color="app.textMuted" textAlign="center" py={8}>
               Loading transactions...
             </Text>
-          ) : transactions && transactions.length > 0 ? (
-            transactions.map((tx, index) => {
-              const isWithdrawal = tx.type === "withdrawal";
-              const title = isWithdrawal ? "Cash withdrawal" : tx.metadata?.product_name || "Transaction";
-              const description = isWithdrawal ? undefined : tx.metadata?.name;
+          ) : filteredTransactions && filteredTransactions.length > 0 ? (
+            filteredTransactions.map((tx, index) => {
+              const formattedTx = formatTransaction(tx);
 
               return (
                 <TransactionItem
                   key={`${tx.payment_reference || index}`}
-                  title={title}
-                  description={description}
-                  amount={`USD ${tx.amount.toLocaleString()}`}
-                  date={tx.date}
-                  status={tx.status as "successful" | "pending"}
-                  type={tx.type as "deposit" | "withdrawal"}
+                  {...formattedTx}
                 />
               );
             })
@@ -114,7 +116,11 @@ export default function TransactionsList() {
           )}
         </Stack>
       </Flex>
-      <FilterDrawer isOpen={isFilterOpen} onOpenChange={setIsFilterOpen} />
+      <FilterDrawer
+        isOpen={isFilterOpen}
+        onOpenChange={setIsFilterOpen}
+        onApplyFilters={setFilters}
+      />
     </Box>
   );
 }

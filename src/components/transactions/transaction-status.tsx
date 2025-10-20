@@ -16,10 +16,21 @@ const TRANSACTION_STATUSES = [
   { label: "Failed", value: "failed" },
 ];
 
-export default function TransactionStatus() {
-  const [selected, setSelected] = useState<string[]>(
+interface TransactionStatusProps {
+  selected?: string[];
+  onSelectionChange?: (selected: string[]) => void;
+}
+
+export default function TransactionStatus({
+  selected: externalSelected,
+  onSelectionChange,
+}: TransactionStatusProps = {}) {
+  const [internalSelected, setInternalSelected] = useState<string[]>(
     TRANSACTION_STATUSES.map((s) => s.value)
   );
+
+  const selected = externalSelected ?? internalSelected;
+  const setSelected = onSelectionChange ?? setInternalSelected;
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);

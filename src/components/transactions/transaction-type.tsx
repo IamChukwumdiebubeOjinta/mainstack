@@ -9,20 +9,23 @@ import {
 } from "@chakra-ui/react";
 import { FaChevronDown, FaCheck } from "react-icons/fa";
 import { useState, useMemo, useRef } from "react";
+import { TRANSACTION_TYPES, DEFAULT_TRANSACTION_TYPE_VALUES } from "@/constants";
 
-const TRANSACTION_TYPES = [
-    { label: "Store Transactions", value: "store-transactions" },
-    { label: "Get Tipped", value: "get-tipped" },
-    { label: "Withdrawals", value: "withdrawals" },
-    { label: "Chargebacks", value: "chargebacks" },
-    { label: "Cashbacks", value: "cashbacks" },
-    { label: "Refer & Earn", value: "refer-earn" },
-];
+interface TransactionTypeMultiSelectProps {
+    selected?: string[];
+    onSelectionChange?: (selected: string[]) => void;
+}
 
-export default function TransactionTypeMultiSelect() {
-    const [selected, setSelected] = useState<string[]>(
-        TRANSACTION_TYPES.map((t) => t.value)
+export default function TransactionTypeMultiSelect({
+    selected: externalSelected,
+    onSelectionChange,
+}: TransactionTypeMultiSelectProps = {}) {
+    const [internalSelected, setInternalSelected] = useState<string[]>(
+        DEFAULT_TRANSACTION_TYPE_VALUES
     );
+
+    const selected = externalSelected ?? internalSelected;
+    const setSelected = onSelectionChange ?? setInternalSelected;
     const [searchQuery, setSearchQuery] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);

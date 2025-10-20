@@ -13,7 +13,7 @@ function StatsPanel() {
         <Box bg="white">
             <VStack gap={8} align="stretch" maxW="270px">
                 {stats.map((stat) => (
-                    <Stat.Root key={stat.label}>
+                    <Stat.Root key={stat.label} cursor="default">
                         <Stat.Label
                             fontSize="sm"
                             color="#56616B"
