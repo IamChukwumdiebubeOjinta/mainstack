@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, Text } from "@chakra-ui/react"
+import { HStack, Icon, Text } from "@chakra-ui/react"
 import { LuInfo } from "react-icons/lu"
 
 interface StatItemProps {
@@ -23,5 +23,3 @@ export function StatItem({ label, value }: StatItemProps) {
 }
 
 export default StatItem
-
-

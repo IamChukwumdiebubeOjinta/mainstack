@@ -6,7 +6,6 @@ import type {
 } from "@/types/transactions";
 
 function StatusIcon({
-  status,
   type,
 }: {
   status: TransactionStatus;

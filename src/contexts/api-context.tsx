@@ -2,7 +2,7 @@ import { createContext, useContext, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { Transaction, User, Wallet } from '@/types';
 
-const BASE_URL = 'https://fe-task-api.mainstack.io';
+const BASE_URL = import.meta.env.VITE_ENDPOINT_URI;
 
 async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${endpoint}`, {

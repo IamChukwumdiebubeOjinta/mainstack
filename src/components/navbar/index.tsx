@@ -199,7 +199,7 @@ export default function TopNav() {
                 isOpen={isProfileOpen}
                 onClose={() => setIsProfileOpen(false)}
                 userName={userProfileName}
-                userEmail={userEmail}
+                userEmail={userEmail ?? ''}
             />
         </>
     );
