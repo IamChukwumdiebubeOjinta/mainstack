@@ -7,13 +7,12 @@ import type {
 
 function StatusIcon({
   status,
-  title,
+  type,
 }: {
   status: TransactionStatus;
-  title: string;
+  type: "deposit" | "withdrawal";
 }) {
-  const isIncoming =
-    status === "success" && !title.toLowerCase().includes("withdrawal");
+  const isIncoming = type === "deposit";
 
   return (
     <Box
@@ -33,7 +32,7 @@ function StatusIcon({
 }
 
 export function TransactionItem(props: TransactionItemProps) {
-  const { title, description, status, amount, date } = props;
+  const { title, description, status, amount, date, type } = props;
 
   return (
     <HStack
@@ -42,7 +41,7 @@ export function TransactionItem(props: TransactionItemProps) {
       align="center"
     >
       <HStack gap={4} align="center" flex="1">
-        <StatusIcon status={status} title={title} />
+        <StatusIcon status={status} type={type} />
         <Stack gap={1} flex="1">
           <Text
             fontWeight="medium"
@@ -52,14 +51,16 @@ export function TransactionItem(props: TransactionItemProps) {
           >
             {title}
           </Text>
-          <Text
-            color="app.textMuted"
-            fontSize="14px"
-            lineHeight="20px"
-            fontWeight="normal"
-          >
-            {description}
-          </Text>
+          {description && (
+            <Text
+              color="app.textMuted"
+              fontSize="14px"
+              lineHeight="20px"
+              fontWeight="normal"
+            >
+              {description}
+            </Text>
+          )}
           {status === "pending" && (
             <Text
               color="app.warning"
@@ -70,17 +71,16 @@ export function TransactionItem(props: TransactionItemProps) {
               Pending
             </Text>
           )}
-          {status === "success" &&
-            title.toLowerCase().includes("withdrawal") && (
-              <Text
-                color="app.success"
-                fontSize="14px"
-                fontWeight="medium"
-                mt={1}
-              >
-                Successful
-              </Text>
-            )}
+          {status === "successful" && type === "withdrawal" && (
+            <Text
+              color="app.success"
+              fontSize="14px"
+              fontWeight="medium"
+              mt={1}
+            >
+              Successful
+            </Text>
+          )}
         </Stack>
       </HStack>
       <Stack gap={1} align="end" minW="120px">

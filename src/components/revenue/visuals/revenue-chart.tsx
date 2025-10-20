@@ -8,12 +8,31 @@ import {
   ReferenceDot,
   Tooltip,
 } from "recharts";
+import { useTransactions } from "@/hooks/useTransactions";
+import { useMemo } from "react";
 
-interface RevenueChartProps {
-  data: Array<{ date: string; value: number }>;
-}
+function RevenueChart() {
+  const { data: transactions, isLoading } = useTransactions();
 
-function RevenueChart({ data }: RevenueChartProps) {
+  // Transform transactions into chart data
+  const data = useMemo(() => {
+    if (!transactions) return [];
+
+    // Group transactions by date and sum amounts
+    const dataMap = new Map<string, number>();
+
+    transactions.forEach((tx) => {
+      const date = tx.date.split(' ')[0]; // Get just the date part (YYYY-MM-DD)
+      const currentValue = dataMap.get(date) || 0;
+      dataMap.set(date, currentValue + tx.amount);
+    });
+
+    // Convert to array and sort by date
+    return Array.from(dataMap.entries())
+      .map(([date, value]) => ({ date, value }))
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }, [transactions]);
+
   // Format date for display (e.g., "2022-04-01" -> "Apr 1, 2022")
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -28,6 +47,14 @@ function RevenueChart({ data }: RevenueChartProps) {
   const endLabel = data[data.length - 1]
     ? formatDate(data[data.length - 1].date)
     : "";
+
+  if (isLoading) {
+    return (
+      <Box width="100%" minHeight="200px" display="flex" alignItems="center" justifyContent="center">
+        <Text color="app.textMuted">Loading chart data...</Text>
+      </Box>
+    );
+  }
 
   return (
     <Box width="100%" minHeight="200px">

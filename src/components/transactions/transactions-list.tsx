@@ -8,17 +8,17 @@ import {
   Text,
 } from "@chakra-ui/react";
 import TransactionItem from "@/components/transactions/transaction-item";
-import type { TransactionItemProps } from "@/types/transactions";
 import { LuChevronDown, LuDownload } from "react-icons/lu";
 import { useState } from "react";
 import FilterDrawer from "@/components/transactions/filter-drawer";
+import { useTransactions } from "@/hooks/useTransactions";
 
-interface TransactionsListProps {
-  items: TransactionItemProps[];
-}
-
-export default function TransactionsList({ items }: TransactionsListProps) {
+export default function TransactionsList() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const { data: transactions, isLoading } = useTransactions();
+
+  const transactionCount = transactions?.length ?? 0;
+
   return (
     <Box mt={{ base: 6, md: 10 }}>
       <Flex bg="card.bg" rounded="card" direction="column" gap="33px">
@@ -37,7 +37,7 @@ export default function TransactionsList({ items }: TransactionsListProps) {
               fontSize="24px"
               lineHeight="32px"
             >
-              24 Transactions
+              {isLoading ? "Loading..." : `${transactionCount} Transactions`}
             </Heading>
             <Text
               color="app.textMuted"
@@ -85,12 +85,33 @@ export default function TransactionsList({ items }: TransactionsListProps) {
 
         {/* Transaction List */}
         <Stack>
-          {items.map((tx) => (
-            <TransactionItem
-              key={`${tx.title}-${tx.date}-${tx.amount}`}
-              {...tx}
-            />
-          ))}
+          {isLoading ? (
+            <Text color="app.textMuted" textAlign="center" py={8}>
+              Loading transactions...
+            </Text>
+          ) : transactions && transactions.length > 0 ? (
+            transactions.map((tx, index) => {
+              const isWithdrawal = tx.type === "withdrawal";
+              const title = isWithdrawal ? "Cash withdrawal" : tx.metadata?.product_name || "Transaction";
+              const description = isWithdrawal ? undefined : tx.metadata?.name;
+
+              return (
+                <TransactionItem
+                  key={`${tx.payment_reference || index}`}
+                  title={title}
+                  description={description}
+                  amount={`USD ${tx.amount.toLocaleString()}`}
+                  date={tx.date}
+                  status={tx.status as "successful" | "pending"}
+                  type={tx.type as "deposit" | "withdrawal"}
+                />
+              );
+            })
+          ) : (
+            <Text color="app.textMuted" textAlign="center" py={8}>
+              No transactions found
+            </Text>
+          )}
         </Stack>
       </Flex>
       <FilterDrawer isOpen={isFilterOpen} onOpenChange={setIsFilterOpen} />

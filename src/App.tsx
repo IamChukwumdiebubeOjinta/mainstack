@@ -4,11 +4,6 @@ import TopNav from "@/components/navbar";
 import RevenueSection from "@/components/revenue";
 import StatsPanel from "@/components/revenue/stats/stats-panel";
 import TransactionsList from "@/components/transactions/transactions-list";
-import {
-  revenueSeries,
-  rightStats,
-  transactions,
-} from "@/data/mock";
 
 function App() {
   return (
@@ -22,16 +17,14 @@ function App() {
             gap={{ base: 6, lg: "124px" }}
           >
             <GridItem>
-              <RevenueSection
-                chartData={revenueSeries}
-              />
+              <RevenueSection />
             </GridItem>
             <GridItem>
               <StatsPanel />
             </GridItem>
           </Grid>
 
-          <TransactionsList items={transactions} />
+          <TransactionsList />
         </Container>
       </Box>
     </Box>
