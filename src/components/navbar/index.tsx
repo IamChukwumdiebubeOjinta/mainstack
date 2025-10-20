@@ -76,7 +76,7 @@ export default function TopNav() {
             >
                 <Container maxW="7xl" py={{ base: 3, md: 4 }}>
                     <HStack gap={4} justifyContent="space-between">
-                        <Image src="/logo.svg" alt="logo" />
+                        <Image src="/logo.png" alt="logo" />
                         <HStack gap={{ base: 2, md: 4 }} as="nav">
                             {NAV_ITEMS.map((item) => (
                                 <Text
