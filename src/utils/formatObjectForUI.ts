@@ -1,9 +1,11 @@
 import type { Wallet } from "@/types";
 
 export default function formatObjectForUI(
-    obj: Wallet,
+    obj: Wallet | undefined | null,
     hiddenKeys: string[] = []
 ) {
+    if (!obj) return []; // Guard clause to handle undefined/null
+
     const formatKey = (key: string) =>
         key
             .split("_")
