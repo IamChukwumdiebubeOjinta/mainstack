@@ -1,17 +1,15 @@
 import {
     Box,
     Button,
-    Checkbox,
     Drawer,
     HStack,
     Portal,
     VStack,
     Text,
 } from "@chakra-ui/react";
-import { LuChevronDown } from "react-icons/lu";
-import { TfiClose } from "react-icons/tfi";
 import TransactionType from "./transaction-type";
 import TransactionStatus from "./transaction-status";
+import DateRangeSelector from "./date-range";
 import { MdOutlineClose } from "react-icons/md";
 
 interface FilterDrawerProps {
@@ -87,9 +85,9 @@ export default function FilterDrawer({
                                             height="36px"
                                             rounded="pill"
                                             _hover={{ bg: "bg.muted" }}
-          whiteSpace="nowrap"
-          fontSize=".875rem"
-          letterSpacing="-0.025rem"
+                                            whiteSpace="nowrap"
+                                            fontSize=".875rem"
+                                            letterSpacing="-0.025rem"
                                         >
                                             {label}
                                         </Button>
@@ -99,38 +97,16 @@ export default function FilterDrawer({
                                 <Box>
                                     <Text
                                         fontWeight="semibold"
-                                        color="app.text"
-                                        mb={2}
+                                        color="black"
+                                        mb=".75rem"
+                                        fontSize="1rem"
+                                        lineHeight="24px"
+                                        letterSpacing="-0.4px"
                                     >
                                         Date Range
                                     </Text>
-                                    <HStack gap={4}>
-                                        <Button
-                                            variant="outline"
-                                            justifyContent="space-between"
-                                            rightIcon={<LuChevronDown />}
-                                            bg="app.surfaceMuted"
-                                            color="app.text"
-                                            rounded="action"
-                                            height="48px"
-                                            flex="1"
-                                        >
-                                            17 Jul 2023
-                                        </Button>
-                                        <Button
-                                            variant="outline"
-                                            justifyContent="space-between"
-                                            //   rightIcon={<LuChevronDown />}
-                                            bg="app.surfaceMuted"
-                                            color="app.text"
-                                            rounded="action"
-                                            height="48px"
-                                            flex="1"
-                                        >
-                                            17 Aug 2023
-                                        </Button>
-                                    </HStack>
-                                </Box>
+                                    <DateRangeSelector />
+                                    </Box>
 
                                 <TransactionType />
 

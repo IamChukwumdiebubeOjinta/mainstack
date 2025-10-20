@@ -1,0 +1,245 @@
+/* Custom styles for react-day-picker matching Figma design */
+
+.custom-day-picker {
+  --rdp-accent-color: #000;
+  font-family: 'Degular', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  padding: 33.7px;
+  width: 412px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 8px rgba(92, 115, 131, 0.08), 0px 6px 12px rgba(92, 115, 131, 0.08);
+  border-radius: 16.85px;
+}
+
+/* Month header */
+.custom-day-picker .rdp-month {
+  margin: 0;
+  width: 100%;
+}
+
+.custom-day-picker .rdp-caption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-bottom: 14.32px;
+  position: relative;
+  height: 26.96px;
+}
+
+.custom-day-picker .rdp-caption_label {
+  font-family: 'Degular', sans-serif;
+  font-weight: 600;
+  font-size: 13.48px;
+  line-height: 150%;
+  text-align: center;
+  letter-spacing: -0.337px;
+  color: #131316;
+  cursor: default;
+}
+
+/* Navigation buttons */
+.custom-day-picker .rdp-nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.custom-day-picker .rdp-button_previous,
+.custom-day-picker .rdp-button_next {
+  width: 26.96px;
+  height: 26.96px;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.37px;
+  pointer-events: all;
+}
+
+.custom-day-picker .rdp-button_previous:hover,
+.custom-day-picker .rdp-button_next:hover {
+  background: transparent;
+}
+
+/* Create chevron arrows */
+.custom-day-picker .rdp-button_previous::before,
+.custom-day-picker .rdp-button_next::before {
+  content: '';
+  display: block;
+  width: 20.22px;
+  height: 20.22px;
+  position: relative;
+}
+
+.custom-day-picker .rdp-button_previous::after,
+.custom-day-picker .rdp-button_next::after {
+  content: '';
+  position: absolute;
+  width: 4.63px;
+  height: 8.68px;
+  border-style: solid;
+  border-color: #131316;
+  border-width: 0 2px 2px 0;
+}
+
+.custom-day-picker .rdp-button_previous::after {
+  transform: rotate(135deg);
+  left: 50%;
+  margin-left: 1px;
+}
+
+.custom-day-picker .rdp-button_next::after {
+  transform: rotate(-45deg);
+  right: 50%;
+  margin-right: 1px;
+}
+
+/* Hide default SVG icons */
+.custom-day-picker .rdp-button_previous svg,
+.custom-day-picker .rdp-button_next svg {
+  display: none;
+}
+
+/* Week days header */
+.custom-day-picker .rdp-weekdays {
+  margin-bottom: 0;
+  display: flex;
+  gap: 3.48px;
+}
+
+.custom-day-picker .rdp-weekday {
+  font-family: 'Degular', sans-serif;
+  font-weight: 600;
+  font-size: 11.8px;
+  line-height: 13.5px;
+  text-align: center;
+  letter-spacing: -0.4px;
+  color: #56616B;
+  padding: 7.58px 5.06px;
+  text-transform: capitalize;
+  width: 41.28px;
+  height: 16.85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+/* Days table */
+.custom-day-picker .rdp-month_grid {
+  width: 100%;
+  border-spacing: 13.48px;
+  border-collapse: separate;
+}
+
+.custom-day-picker .rdp-week {
+  display: flex;
+  gap: 13.48px;
+  margin-bottom: 13.48px;
+}
+
+.custom-day-picker .rdp-week:last-child {
+  margin-bottom: 0;
+}
+
+.custom-day-picker .rdp-day {
+  width: 32.02px;
+  height: 32.02px;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-day-picker .rdp-day.rdp-selected .rdp-day_button{
+    background: #131316;
+    color: #FFFFFF !important;
+}
+
+.custom-day-picker .rdp-day_button {
+  width: 32.02px;
+  height: 32.02px;
+  border-radius: 84.25px;
+  border: none;
+  background: transparent;
+  font-family: 'Degular', sans-serif;
+  font-weight: 600;
+  font-size: 11.8px;
+  line-height: 13.5px;
+  letter-spacing: -0.4px;
+  color: #131316;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7.58px 5.06px;
+}
+
+/* Hover state */
+.custom-day-picker .rdp-day_button:hover:not(.rdp-day_selected):not(.rdp-range_start):not(.rdp-range_end) {
+  background: #F3F4F6;
+}
+
+/* Selected dates - black circle */
+.custom-day-picker .rdp-day_button.rdp-day_selected,
+.custom-day-picker .rdp-day_button.rdp-range_start,
+.custom-day-picker .rdp-day_button.rdp-range_end {
+  background: #131316 !important;
+  color: #FFFFFF !important;
+}
+
+/* Range middle dates - no special styling */
+.custom-day-picker .rdp-day_button.rdp-range_middle {
+  background: transparent;
+  color: #131316;
+}
+
+/* Disabled dates */
+.custom-day-picker .rdp-day_button:disabled {
+  color: #E5E7EB;
+  cursor: not-allowed;
+}
+
+.custom-day-picker .rdp-day_button:disabled:hover {
+  background: transparent;
+}
+
+/* Today indicator */
+.custom-day-picker .rdp-day_today:not(.rdp-day_selected) .rdp-day_button {
+  font-weight: 600;
+}
+
+/* Hide outside days completely */
+.custom-day-picker .rdp-day_outside {
+  visibility: hidden;
+}
+
+/* Remove default focus outline */
+.custom-day-picker .rdp-day_button:focus-visible {
+  outline: 2px solid #131316;
+  outline-offset: 2px;
+}
+
+/* Adjust table layout */
+.custom-day-picker .rdp-month_caption {
+  margin-bottom: 14.32px;
+  justify-content: center;
+  font-weight: 600;
+  letter-spacing: -0.0213rem;
+  font-size: .8425rem;
+}
+
+.custom-day-picker .rdp-tbody {
+  border: 0;
+}
+
+.custom-day-picker table {
+  border-collapse: separate;
+  border-spacing: 13.48px 13.48px;
+  margin: 0;
+}
