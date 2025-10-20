@@ -46,7 +46,7 @@ export default function TransactionTypeMultiSelect({
     }, [searchQuery]);
 
     const toggleSelection = (value: string) => {
-        setSelected((prev) =>
+        setSelected((prev: string[]) =>
             prev.includes(value)
                 ? prev.filter((v) => v !== value)
                 : [...prev, value]

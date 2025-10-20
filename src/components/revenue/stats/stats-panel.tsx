@@ -6,8 +6,9 @@ import { InfoTip } from "@/components/ui/toggle-tip";
 const hideKeys = ["balance"];
 
 function StatsPanel() {
-    const { data, isLoading } = useWallet();
-    const stats = formatObjectForUI(data ?? [], hideKeys);
+    const { data, isLoading, isError } = useWallet();
+
+    const stats = formatObjectForUI(data ?? {}, hideKeys);
     if (!stats) console.error(isError);
 
     return (
