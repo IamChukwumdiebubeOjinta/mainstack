@@ -2,13 +2,15 @@ import { useWallet } from "@/hooks/useWallet";
 import formatObjectForUI from "@/utils/formatObjectForUI";
 import { Box, VStack, Stat } from "@chakra-ui/react";
 import { InfoTip } from "@/components/ui/toggle-tip";
-import type { Wallet } from "@/types";
 
 const hideKeys = ["balance"];
 
 function StatsPanel() {
     const { data, isLoading } = useWallet();
-    const stats: Wallet = formatObjectForUI(data ?? [], hideKeys);
+    const stats: { label: string; value: string }[] = formatObjectForUI(
+        data,
+        hideKeys
+    );
 
     return (
         <Box bg="white">
@@ -25,9 +27,7 @@ function StatsPanel() {
                             justifyContent="space-between"
                         >
                             {isLoading ? "Please wait..." : stat.label}
-                            <InfoTip>
-                                {stat.label} information
-                            </InfoTip>
+                            <InfoTip>{stat.label} information</InfoTip>
                         </Stat.Label>
                         <Stat.ValueText
                             fontSize="28px"

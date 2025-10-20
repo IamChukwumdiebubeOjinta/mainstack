@@ -1,11 +1,17 @@
-export default function formatObjectForUI(obj, hiddenKeys = []) {
+export default function formatObjectForUI(
+    obj: Record<string, number | string>,
+    hiddenKeys: string[] = []
+) {
     const formatKey = (key: string) =>
         key
             .split("_")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ");
 
-    const formatValue = (value: number) => value.toLocaleString("en-US");
+    const formatValue = (value: number | string) => {
+        if (typeof value === "number") return value.toLocaleString("en-US");
+        return value; // if it's a string, just return as-is
+    };
 
     return Object.entries(obj)
         .filter(([key]) => !hiddenKeys.includes(key))
