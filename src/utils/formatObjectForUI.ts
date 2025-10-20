@@ -10,7 +10,7 @@ export default function formatObjectForUI(
 
     const formatValue = (value: number | string) => {
         if (typeof value === "number") return value.toLocaleString("en-US");
-        return value; // if it's a string, just return as-is
+        return value;
     };
 
     return Object.entries(obj)
