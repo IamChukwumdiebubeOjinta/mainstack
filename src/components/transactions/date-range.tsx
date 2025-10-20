@@ -29,7 +29,9 @@ export default function DateRangeSelector() {
     // Return focus to input when closing to avoid aria-hidden focus issue
     if (!details.open) {
       setTimeout(() => {
-        document.activeElement instanceof HTMLElement && document.activeElement.blur();
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
       }, 0);
     }
   };
@@ -39,7 +41,9 @@ export default function DateRangeSelector() {
     // Return focus to input when closing to avoid aria-hidden focus issue
     if (!details.open) {
       setTimeout(() => {
-        document.activeElement instanceof HTMLElement && document.activeElement.blur();
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
       }, 0);
     }
   };
@@ -50,7 +54,7 @@ export default function DateRangeSelector() {
       <Box position="relative" flex="1">
         <Popover.Root
           open={startDateOpen}
-          onOpenChange={(e) => setStartDateOpen(e.open)}
+          onOpenChange={handleStartDateOpenChange}
           positioning={{ placement: "bottom-start" }}
           closeOnInteractOutside={true}
           modal={false}
@@ -118,7 +122,7 @@ export default function DateRangeSelector() {
       <Box position="relative" flex="1">
         <Popover.Root
           open={endDateOpen}
-          onOpenChange={(e) => setEndDateOpen(e.open)}
+          onOpenChange={handleEndDateOpenChange}
           positioning={{ placement: "bottom-start" }}
           closeOnInteractOutside={true}
           modal={false}
