@@ -6,10 +6,6 @@ const BASE_URL = 'https://fe-task-api.mainstack.io';
 
 async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options?.headers,
-    },
     ...options,
   });
 
