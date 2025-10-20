@@ -7,15 +7,13 @@ const hideKeys = ["balance"];
 
 function StatsPanel() {
     const { data, isLoading } = useWallet();
-    const stats: { label: string; value: string }[] = formatObjectForUI(
-        data,
-        hideKeys
-    );
+    const stats = formatObjectForUI(data ?? [], hideKeys);
+    if (!stats) console.error(isError);
 
     return (
         <Box bg="white">
             <VStack gap={8} align="stretch" maxW="270px">
-                {stats.map((stat) => (
+                {stats?.map((stat) => (
                     <Stat.Root key={stat.label} cursor="default">
                         <Stat.Label
                             fontSize="sm"

@@ -69,7 +69,7 @@ export default function TransactionTypeMultiSelect({
                 open={isOpen}
                 onOpenChange={(e) => setIsOpen(e.open)}
                 positioning={{ sameWidth: true }}
-                closeOnInteractOutside={true}
+                closeOnInteractOutside={false}
                 modal={false}
             >
                 <Popover.Trigger asChild>
@@ -96,6 +96,7 @@ export default function TransactionTypeMultiSelect({
                                     selectedLabels ||
                                     "Filter By Transaction Types"
                                 }
+                                readOnly
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 onFocus={() => setIsOpen(true)}
@@ -148,6 +149,7 @@ export default function TransactionTypeMultiSelect({
                                             onClick={() =>
                                                 toggleSelection(type.value)
                                             }
+                                            onMouseDown={(e) => e.preventDefault()}
                                             display="flex"
                                             alignItems="center"
                                             gap={3}

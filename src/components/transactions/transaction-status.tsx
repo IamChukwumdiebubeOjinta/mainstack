@@ -74,7 +74,7 @@ export default function TransactionStatus({
         open={isOpen}
         onOpenChange={(e) => setIsOpen(e.open)}
         positioning={{ sameWidth: true }}
-        closeOnInteractOutside={true}
+        closeOnInteractOutside={false}
         modal={false}
       >
         <Popover.Trigger asChild>
